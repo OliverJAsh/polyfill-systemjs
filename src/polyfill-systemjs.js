@@ -36,11 +36,11 @@ define(function () {
 
                 var shim = {};
                 shim[baseURL + '/system.js'] = { exports: 'System' };
-                require.config({ shim: shim });
+                var config = { shim: shim };
 
                 // document.write is broken in async, so load ES6 module loader manually
-                require([baseURL + '/es6-module-loader.js'], function () {
-                    require([baseURL + '/system.js'], function (System) {
+                require(config, [baseURL + '/es6-module-loader.js'], function () {
+                    require(config, [baseURL + '/system.js'], function (System) {
                         // https://github.com/systemjs/systemjs/issues/461
                         // Restore old require
                         window.require = require;
